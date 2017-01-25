@@ -15,7 +15,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        
+        // The below code holds the dynamic shortcuts
+        
+        if let shortcutItems = application.shortcutItems where shortcutItems.isEmpty {
+            
+            
+            // Downloaded the latest Chat and dynimacally load it. May be when app cloases update the latest chat, So next time when you launch it has new data.
+            
+            let downloadedChat = "XYZ"
+            
+            let dynamicShortcut = UIMutableApplicationShortcutItem(type: "Recent Chats", localizedTitle: "Recent Chats", localizedSubtitle: "Start a Chat with \(downloadedChat)", icon: UIApplicationShortcutIcon(templateImageName: "Heart"), userInfo: nil)
+            application.shortcutItems = [dynamicShortcut]
+        }
+        
+
         return true
     }
 
@@ -41,6 +56,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem:UIApplicationShortcutItem, completionHandler: (Bool) -> Void)
+    {
+        if let tabVC = self.window?.rootViewController as? UITabBarController
+        {
+        
+            if shortcutItem.type == "Search"
+            {
+                tabVC.selectedIndex = 0
+            } else if shortcutItem.type == "Chats"
+            {
+                tabVC.selectedIndex = 1
+            }
+            
+        }
+    }
 
 }
 

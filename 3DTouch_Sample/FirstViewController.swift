@@ -21,5 +21,9 @@ class FirstViewController: UIViewController {
     }
 
 
+    // The written things in plist are all static !!
+    
+    // Two types of decalration will be there in plist they are: 1. Static 2. Dynamic
+    
 }
 
